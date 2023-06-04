@@ -64,7 +64,7 @@
 
 
 - Logistic Regression -> **Overfit 해소**
-  ![스크린샷 2023-06-04 오후 4 25 19](https://github.com/Yu-Miri/Mini_Project/assets/121469490/3fc419f0-a06b-4496-8b65-38de56c1f08f)
+  <img width="272" alt="스크린샷 2023-06-04 오후 4 25 19" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/3fc419f0-a06b-4496-8b65-38de56c1f08f">
   
   -> task의 난이도가 낮아지면서 Overfitting이 발생한 것으로 판단하였으며, 이를 해소하기 위해 모델을 복잡도가 낮은 logistic regression으로 교체한 결과 모델의 성능을 generalization 시킬 수 있었다.
 
