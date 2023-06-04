@@ -74,7 +74,7 @@
 Modeling 평가 기준 : Recall
 - 수집한 Target 데이터의 분포 비대칭성 존재 → Accuracy 부적합 판단
 - 실제 True인 것 중에서 모델이 True라고 예측한 비율
---
+---
 
 개선사항
 - 치우쳐진 데이터의 분포도 : 리뷰 데이터 특성상 1점 - 3점 평점의 비중이 적어 평점 데이터 수집에 한계 존재
@@ -90,7 +90,7 @@ Modeling 평가 기준 : Recall
 -----------
 ## Installation
 
-#### Requirements
+### Requirements
 - Python==3.8
 
       git clone https://github.com/Yu-Miri/Mini_Project.git
@@ -98,7 +98,7 @@ Modeling 평가 기준 : Recall
       pip install konlpy
     
 
-#### Preparing for DataFrame
+### Preparing for DataFrame
 
       import pandas as pd
       from df_processing import df_process
@@ -107,7 +107,7 @@ Modeling 평가 기준 : Recall
       reviews, bow_train = df_process(reviews)
  
  
-#### Modeling[[LGBM, Logistic]]
+### Modeling[[LGBM, Logistic]]
     
       from modeling import model_dataset, modeling_LGBM, modeling_Logistic
     
@@ -116,7 +116,7 @@ Modeling 평가 기준 : Recall
       modeling_Logistic(X_train, X_test, y_train, y_test)
  
  
-#### Predict
+### Predict
 Recommended procedure : Requirements -> Preparing for DataFrame -> Modeling -> Predict
 
       reviews['pred'] = lgbm_model.predict(X_train)
