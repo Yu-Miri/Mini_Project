@@ -1,4 +1,4 @@
-# Cafe Review Rating Predition
+# :coffee: Cafe Review Rating Predition
 
 ### 프로젝트 개요
 - 기간 : 2023.01.23 ~ 2023.02.14
