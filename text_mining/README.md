@@ -31,7 +31,7 @@
 - Location : 카페 밀집도가 많은 서울시 행정구역
 - Feature : Review
 - Target : 특정 카페의 리뷰를 바탕으로 예측한 총 평점
-  <img width="311" alt="스크린샷 2023-06-04 오후 3 51 43" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/a70dd95b-3eb5-4eee-a8fe-fbd17851948f">
+     <img width="311" alt="스크린샷 2023-06-04 오후 3 51 43" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/a70dd95b-3eb5-4eee-a8fe-fbd17851948f">
 
 ---
 ### 데이터 전처리
