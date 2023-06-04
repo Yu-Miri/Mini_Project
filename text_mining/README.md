@@ -51,18 +51,18 @@
 
   - 데이터 핸들링 : (25244, 4630) ⇒ (25244, 300) [token 축소]
   - 모델 핸들링 : (max_depth = 3, n_estimators = 200) ⇒ (max_depth = 9, n_estimators = 400)
-    <img width="281" alt="스크린샷 2023-06-04 오후 4 05 02" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/44c4c83a-f5a9-42dc-8cce-c96c38a5b86f">
+  - <img width="281" alt="스크린샷 2023-06-04 오후 4 05 02" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/44c4c83a-f5a9-42dc-8cce-c96c38a5b86f">
   - 핸들링 Before와 After를 비교해 보았을 때 오히려 더 낮아지는 score에 따라 심한 Underfit 상태로 판단했으며, 모델 성능의 문제보다는 치우쳐져 있는 평점 데이터 분포도의 한계를 발견했다. 이에 따라 휴리스틱 룰을 통해 다중 분류에서 이진 분류(Negative : 1점 - 3점, Positive : 4점 - 5점)로 새로운 가설을 생성하였다.
   - 모델 hyper parameter tuning 라이브러리인 optuna 등을 사용해서 핸들링 했다면 성능을 더 높일 수 있지 않았을까 하는 아쉬움이 남는다.
 
  - LightGBM[이진분류] -> Underfit 해소
   - Overfit 판단 : 복잡도가 낮은 Logistic Regression 모델 선정
-    <img width="272" alt="스크린샷 2023-06-04 오후 4 06 20" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/5f21ae6f-e3fc-48b7-8056-0e1453863a7f">
+  - <img width="272" alt="스크린샷 2023-06-04 오후 4 06 20" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/5f21ae6f-e3fc-48b7-8056-0e1453863a7f">
   - 휴리스틱 룰을 통해 이진 분류로 문제의 난이도를 낮춤으로써 모델의 성능을 개선할 수 있었지만, Train Recall score가 Test Recall score와 비교해 보았을 때 더 높은 것으로 Overfit 상태로 판단하였다.
 
 
 - Logistic Regression -> Overfit 해소
-  ![스크린샷 2023-06-04 오후 4 08 58](https://github.com/Yu-Miri/Mini_Project/assets/121469490/63ff0362-8824-4204-92dc-5f949e3ae48a)
+- ![스크린샷 2023-06-04 오후 4 08 58](https://github.com/Yu-Miri/Mini_Project/assets/121469490/63ff0362-8824-4204-92dc-5f949e3ae48a)
 - task의 난이도가 낮아지면서 Overfitting이 발생한 것으로 판단하였으며, 이를 해소하기 위해 모델을 복잡도가 낮은 logistic regression으로 교체한 결과 모델의 성능을 generalization 시킬 수 있었다.
 
 -----------
