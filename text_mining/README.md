@@ -12,6 +12,7 @@
 
 ### 문제 정의
 - 대부분의 소비자들은 가고 싶은 카페를 선정할 때 평점과 리뷰를 참고하지만, 각 플랫폼 별 평점이 다르고, 광고성 리뷰 또는 악의성 리뷰로 인하여 어떤 플랫폼의 어떤 리뷰가 믿을만한 리뷰인지에 대한 혼란을 겪게 된다.
+
      <img width="600" alt="스크린샷 2023-06-04 오후 3 45 33" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/09e7531f-e3ce-443e-97c8-0c838601c9e3">
      <img width="600" alt="스크린샷 2023-06-04 오후 3 46 06" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/dcef931b-46fb-4d25-984d-8789a0baed39">
 
