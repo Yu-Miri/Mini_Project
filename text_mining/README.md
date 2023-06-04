@@ -12,8 +12,9 @@
 
 ### 문제 정의
 - 대부분의 소비자들은 가고 싶은 카페를 선정할 때 평점과 리뷰를 참고하지만, 각 플랫폼 별 평점이 다르고, 광고성 리뷰 또는 악의성 리뷰로 인하여 어떤 플랫폼의 어떤 리뷰가 믿을만한 리뷰인지에 대한 혼란을 겪게 된다.
-<img width="726" alt="스크린샷 2023-06-04 오후 3 45 33" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/09e7531f-e3ce-443e-97c8-0c838601c9e3">
-<img width="729" alt="스크린샷 2023-06-04 오후 3 46 06" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/dcef931b-46fb-4d25-984d-8789a0baed39">
+<img width="600" alt="스크린샷 2023-06-04 오후 3 45 33" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/09e7531f-e3ce-443e-97c8-0c838601c9e3">
+<img width="600" alt="스크린샷 2023-06-04 오후 3 46 06" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/dcef931b-46fb-4d25-984d-8789a0baed39">
+
 
 ### 해결 방안
 <프로젝트 목적>
@@ -22,8 +23,6 @@
 <프로젝트 내용>
 - 팀 프로젝트를 통해 여러 플랫폼의 리뷰와 평점을 분석하여 과장된 광고성 리뷰나 악의성 리뷰로부터 벗어나 리뷰와 평점을 참고해 카페를 선정하는 소비자들의 의사결정에 도움이 될 수 있는 카페 리뷰 평점의 평균 지표를 제공한다.
 
-<프로젝트 내용>
-- 팀 프로젝트를 통해 여러 플랫폼의 리뷰와 평점을 분석하여 과장된 광고성 리뷰나 악의성 리뷰로부터 벗어나 리뷰와 평점을 참고해 카페를 선정하는 소비자들의 의사결정에 도움이 될 수 있는 카페 리뷰 평점의 평균 지표를 제공한다.
 
 ### 데이터 설명
 - 출처 : Kakao Map, Dining Code
@@ -33,6 +32,7 @@
 - Target : 특정 카페의 리뷰를 바탕으로 예측한 총 평점
 <img width="311" alt="스크린샷 2023-06-04 오후 3 51 43" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/a70dd95b-3eb5-4eee-a8fe-fbd17851948f">
 
+
 ### 데이터 전처리
 - 한글, 공백을 제외한 문자 제거 : 이모티콘, 특수문자 등 의미 없는 문자 존재
 - Okt 객체를 이용하여 형태소 토큰화, 품사 태깅 : KoNLPy
@@ -41,24 +41,27 @@
 - Vectorization
   - Bow : 단어의 순서나 문맥을 고려하지 않으며, 문서나 문장을 단어 단위로 토큰화하여, 각 단어의 출현 빈도를 세어 벡터로 표현하는 방법
 <img width="192" alt="스크린샷 2023-06-04 오후 3 56 50" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/fa09d723-abee-40c4-8736-9c7ff3be17dc">
-    - 크롤링한 리뷰를 살펴 보았을 때 직접적으로 메뉴와 가격, 직원의 친절도에 대해 언급하면서 평가를 남긴 것을 확인할 수 있었으며, 이러한 평가로 카페에 대한 평점이 정해지기 때문에 카페에 대한 평가 표현의 빈도수에 따라 토큰의 개수가 적어져도 카페 평점 예측에 큰 영향이 없을 것이라 생각되어 전처리 이후에 Underfit 상태에서 데이터의 복잡도를 낮추기 위해 토큰의 개수를 줄였습니다.
-    - 토큰의 개수를 줄이고 모델의 hyper parameter tuning을 진행했을 때 Underfit이 해소되지 않은 것으로 보면, 모델이나 토큰 개수의 문제보다는 task의 난이도로 인한 모델 성능이 좋지 않다고 생각되어 다중 분류에서 이진 분류로 task의 난이도를 낮추어 개선하였습니다.
     
-### 모델 학습
-- Model : LightGBM, Losgistic Regression
-  - LightGBM
-    - [다중분류] -> Underfit
-      - 데이터 핸들링 : (25244, 4630) ⇒ (25244, 300) [token 축소]
-      - 모델 핸들링 : (max_depth = 3, n_estimators = 200) ⇒ (max_depth = 9, n_estimators = 400)<img width="281" alt="스크린샷 2023-06-04 오후 4 05 02" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/44c4c83a-f5a9-42dc-8cce-c96c38a5b86f">
-      - 핸들링 Before와 After를 비교해 보았을 때 오히려 더 낮아지는 score에 따라 심한 Underfit 상태로 판단했으며, 모델 성능의 문제보다는 치우쳐져 있는 평점 데이터 분포도의 한계를 발견했다. 이에 따라 휴리스틱 룰을 통해 다중 분류에서 이진 분류(Negative : 1점 - 3점, Positive : 4점 - 5점)로 새로운 가설을 생성하였다.
-      - 모델 hyper parameter tuning 라이브러리인 optuna 등을 사용해서 핸들링 했다면 성능을 더 높일 수 있지 않았을까 하는 아쉬움이 남는다.
-
-    - [이진분류] -> Underfit 해소
-      - Overfit 판단 : 복잡도가 낮은 Logistic Regression 모델 선정<img width="272" alt="스크린샷 2023-06-04 오후 4 06 20" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/5f21ae6f-e3fc-48b7-8056-0e1453863a7f">
-      - 휴리스틱 룰을 통해 이진 분류로 문제의 난이도를 낮춤으로써 모델의 성능을 개선할 수 있었지만, Train Recall score가 Test Recall score와 비교해 보았을 때 더 높은 것으로 Overfit 상태로 판단하였다.
+- 크롤링한 리뷰를 살펴 보았을 때 직접적으로 메뉴와 가격, 직원의 친절도에 대해 언급하면서 평가를 남긴 것을 확인할 수 있었으며, 이러한 평가로 카페에 대한 평점이 정해지기 때문에 카페에 대한 평가 표현의 빈도수에 따라 토큰의 개수가 적어져도 카페 평점 예측에 큰 영향이 없을 것이라 생각되어 전처리 이후에 Underfit 상태에서 데이터의 복잡도를 낮추기 위해 토큰의 개수를 줄였습니다.
+- 토큰의 개수를 줄이고 모델의 hyper parameter tuning을 진행했을 때 Underfit이 해소되지 않은 것으로 보면, 모델이나 토큰 개수의 문제보다는 task의 난이도로 인한 모델 성능이 좋지 않다고 생각되어 다중 분류에서 이진 분류로 task의 난이도를 낮추어 개선하였습니다.
 
 
-- Logistic Regression -> Overfit 해소![스크린샷 2023-06-04 오후 4 08 58](https://github.com/Yu-Miri/Mini_Project/assets/121469490/63ff0362-8824-4204-92dc-5f949e3ae48a)
+### 모델 학습 : LightGBM, Logistic Regression
+- LightGBM
+  - [다중분류] -> Underfit
+    - 데이터 핸들링 : (25244, 4630) ⇒ (25244, 300) [token 축소]
+    - 모델 핸들링 : (max_depth = 3, n_estimators = 200) ⇒ (max_depth = 9, n_estimators = 400)<img width="281" alt="스크린샷 2023-06-04 오후 4 05 02" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/44c4c83a-f5a9-42dc-8cce-c96c38a5b86f">
+    - 핸들링 Before와 After를 비교해 보았을 때 오히려 더 낮아지는 score에 따라 심한 Underfit 상태로 판단했으며, 모델 성능의 문제보다는 치우쳐져 있는 평점 데이터 분포도의 한계를 발견했다. 이에 따라 휴리스틱 룰을 통해 다중 분류에서 이진 분류(Negative : 1점 - 3점, Positive : 4점 - 5점)로 새로운 가설을 생성하였다.
+    - 모델 hyper parameter tuning 라이브러리인 optuna 등을 사용해서 핸들링 했다면 성능을 더 높일 수 있지 않았을까 하는 아쉬움이 남는다.
+
+  - [이진분류] -> Underfit 해소
+    - Overfit 판단 : 복잡도가 낮은 Logistic Regression 모델 선정
+    <img width="272" alt="스크린샷 2023-06-04 오후 4 06 20" src="https://github.com/Yu-Miri/Mini_Project/assets/121469490/5f21ae6f-e3fc-48b7-8056-0e1453863a7f">
+    - 휴리스틱 룰을 통해 이진 분류로 문제의 난이도를 낮춤으로써 모델의 성능을 개선할 수 있었지만, Train Recall score가 Test Recall score와 비교해 보았을 때 더 높은 것으로 Overfit 상태로 판단하였다.
+
+
+- Logistic Regression -> Overfit 해소
+![스크린샷 2023-06-04 오후 4 08 58](https://github.com/Yu-Miri/Mini_Project/assets/121469490/63ff0362-8824-4204-92dc-5f949e3ae48a)
 - task의 난이도가 낮아지면서 Overfitting이 발생한 것으로 판단하였으며, 이를 해소하기 위해 모델을 복잡도가 낮은 logistic regression으로 교체한 결과 모델의 성능을 generalization 시킬 수 있었다.
 
 -----------
